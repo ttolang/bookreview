@@ -22,22 +22,43 @@
                 $("#reviews-box").html("");
                 showReview();
             });
+
             function makeReview() {
                 // 1. 제목, 저자, 리뷰 내용을 가져옵니다.
+
+                var title = $('#title').val();
+                var author = $('#author').val();
+                var review = $('#bookReview').val();
+
                 // 2. 제목, 저자, 리뷰 중 하나라도 입력하지 않았을 경우 alert를 띄웁니다.
+                if (title == '') {
+                    alert('title 내용 기입 하지 않았습니다.');
+                    return
+                }
+                if (author == '') {
+                    alert('author 내용 기입 하지 않았습니다.');
+                    return
+                }
+                if (review == '') {
+                    alert('review 내용 기입 하지 않았습니다.');
+                    return
+                }
+
+
                 // 3. POST /review 에 저장을 요청합니다.
                 $.ajax({
                     type: "POST",
                     url: "/review",
-                    data: {},
+                    data: {'title_give' : title, 'author_give' : author, 'review_give' : review},
                     success: function (response) {
                         if (response["result"] == "success") {
-                            alert(response["msg"]);
+                            alert('리뷰를 저장했습니다');
                             window.location.reload();
                         }
                     }
                 })
             }
+
             function showReview() {
                 // 1. 리뷰 목록을 서버에 요청하기
                 // 2. 요청 성공 여부 확인하기
@@ -55,6 +76,7 @@
                     }
                 })
             }
+
             function validateLength(obj) {
                 let content = $(obj).val();
                 if (content.length > 140) {
@@ -67,17 +89,21 @@
             * {
                 font-family: "Do Hyeon", sans-serif;
             }
+
             h1,
             h5 {
                 display: inline;
             }
+
             .info {
                 margin-top: 20px;
                 margin-bottom: 20px;
             }
+
             .review {
                 text-align: center;
             }
+
             .reviews {
                 margin-top: 100px;
             }
