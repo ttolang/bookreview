@@ -43,7 +43,7 @@ def read_reviews():
         'reviews' : reviews
 
     }
-    return jsonify({'result': 'success', 'msg': '이 요청은 GET!'})
+    return jsonify(result)
 
 
 if __name__ == '__main__':
