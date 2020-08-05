@@ -35,6 +35,14 @@ def write_review():
 
 @app.route('/review', methods=['GET'])
 def read_reviews():
+    condition = {}
+    #pymongo가 주는 리스트를 json으로 사용할수 있는 파이썬 리스트로 변경
+    reviews = list(db.review.find(condition, {'_id' : 0}))
+    result = {
+        'result'  : 'success',
+        'reviews' : reviews
+
+    }
     return jsonify({'result': 'success', 'msg': '이 요청은 GET!'})
 
 
